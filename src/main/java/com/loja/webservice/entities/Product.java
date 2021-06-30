@@ -19,7 +19,12 @@ public class Product implements Serializable {
     private String imgUrl;
 
     //private List<Order> orders = new ArrayList<>();
-    @Transient //Impede que o JPA interprete isso
+    //@Transient //Impede que o JPA interprete isso
+
+    @ManyToMany
+    @JoinTable(name = "tb_product_category",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
     public Product() {
