@@ -1,8 +1,10 @@
 package com.loja.webservice.config;
 
+import com.loja.webservice.entities.Category;
 import com.loja.webservice.entities.Order;
 import com.loja.webservice.entities.OrderStatus;
 import com.loja.webservice.entities.User;
+import com.loja.webservice.repositories.CategoryRepository;
 import com.loja.webservice.repositories.OrderRepository;
 import com.loja.webservice.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +25,18 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public void run(String... args) throws Exception {
+
+        Category cat1 = new Category(null, "Electronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
+
+        categoryRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
+
         User u1 = new User( null, "Maria Brown", "mariabrowns@gmail.com", "99513599", "232365" );
         User u2 = new User( null, "Jao Azevedo", "johnazevds@gmail.com", "99656663", "989653" );
 
