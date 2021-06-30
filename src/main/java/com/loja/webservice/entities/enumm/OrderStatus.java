@@ -1,4 +1,4 @@
-package com.loja.webservice.entities;
+package com.loja.webservice.entities.enumm;
 
 public enum OrderStatus {
     WAITING_PAYMENT(1),
