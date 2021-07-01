@@ -1,5 +1,6 @@
 package com.loja.webservice.resources.exceptions;
 
+import com.loja.webservice.services.exceptions.DataBaseException;
 import com.loja.webservice.services.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,15 @@ public class ResourceExceptionHandler {
     public ResponseEntity<StandartError> resourceNotFound(ResourceNotFoundException e, HttpServletRequest request){
         String error = "Recurso não encontrado";
         HttpStatus status = HttpStatus.NOT_FOUND;
+        StandartError err = new StandartError(Instant.now(),status.value(), error, e.getMessage(),request.getRequestURI() );
+        return ResponseEntity.status(status).body(err);
+    }
+
+
+    @ExceptionHandler(DataBaseException.class)
+    public ResponseEntity<StandartError> database(DataBaseException e, HttpServletRequest request){
+        String error = "Erro na base de dados";
+        HttpStatus status = HttpStatus.BAD_REQUEST;
         StandartError err = new StandartError(Instant.now(),status.value(), error, e.getMessage(),request.getRequestURI() );
         return ResponseEntity.status(status).body(err);
     }
